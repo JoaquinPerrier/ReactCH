@@ -1,0 +1,8 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  border-bottom: #1a1a1a 3px solid;
+  background-color: #74ebd5;
+  background-image: linear-gradient(249deg, #74ebd5 0%, #9face6 100%);
+}
