@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CartWidget from "./CartWidget";
 import styles from "./navVar.module.css";
 
@@ -8,7 +9,9 @@ const NavBar = () => {
   return (
     <div className={styles.navbar}>
       <div className="izq-navbar">
-        <i className="fa-solid fa-user fa-2x"></i>
+        <Link to="/">
+          <i className="fa-solid fa-user fa-2x"></i>
+        </Link>
         <h4>{nombre}</h4>
       </div>
       <div className="der-navbar">
