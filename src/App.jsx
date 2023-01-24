@@ -9,21 +9,27 @@ import Loader from "./components/Loader";
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
-      .then((json) => setProducts(json));
+      .then((json) => {
+        setProducts(json);
+        setLoading(false);
+      });
   }, []);
 
   return (
     <div className="App">
-      <Loader />
       <NavBar />
       <ItemListConteiner />
 
       <Routes>
-        <Route path="/" element={<List list={products} />} />
+        <Route
+          path="/"
+          element={loading ? <Loader /> : <List list={products} />}
+        />
         <Route
           path="/category/men-clothing"
           element={
