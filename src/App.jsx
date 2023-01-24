@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import ItemListConteiner from "./components/ItemListConteiner";
 import List from "./components/List";
 import ProductDetail from "./components/ProductDetail";
+import Loader from "./components/Loader";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <div className="App">
+      <Loader />
       <NavBar />
       <ItemListConteiner />
 
