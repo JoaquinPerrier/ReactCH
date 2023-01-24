@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import CartWidget from "./CartWidget";
-import styles from "./navVar.module.css";
+import styles from "./navBar.module.css";
 
 let nombre = "Joaquin Perrier";
 
