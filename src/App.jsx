@@ -62,7 +62,7 @@ function App() {
         />
         <Route
           path="/product/:id"
-          element={<ProductDetail data={products} />}
+          element={loading ? <Loader /> : <ProductDetail data={products} />}
         />
       </Routes>
     </div>

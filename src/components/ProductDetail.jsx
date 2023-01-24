@@ -7,12 +7,15 @@ const ProductDetail = ({ data }) => {
 
   id = parseInt(id);
 
-  console.log("ID DE LA DATITA" + data[0].id);
-  console.log("ID PÄRAM" + id);
-
   const item = data.find((item) => item.id === id);
 
-  return <Products key={item.id} data={item} />;
+  return (
+    <div className="container text-center">
+      <div className="row row-cols-3">
+        <Products key={item.id} data={item} />
+      </div>
+    </div>
+  );
 };
 
 export default ProductDetail;

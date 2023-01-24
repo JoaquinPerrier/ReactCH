@@ -73,6 +73,7 @@ button:focus-visible {
 .der-navbar {
   padding-top: 1rem;
   display: flex;
+  margin: 0.5rem 2rem;
 }
 
 .izq-navbar i,
