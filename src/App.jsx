@@ -6,10 +6,13 @@ import ItemListConteiner from "./components/ItemListConteiner";
 import List from "./components/List";
 import ProductDetail from "./components/ProductDetail";
 import Loader from "./components/Loader";
+import db from "../db/firebase-config";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  console.log(db);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
