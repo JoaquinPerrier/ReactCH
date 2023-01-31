@@ -7,12 +7,27 @@ import List from "./components/List";
 import ProductDetail from "./components/ProductDetail";
 import Loader from "./components/Loader";
 import db from "../db/firebase-config";
+import { getDocs, collection } from "firebase/firestore";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(db);
+  // Obtener datos
+  const [items, setItems] = useState([]);
+
+  const itemsCollectionRef = collection(db, "items");
+
+  const getItems = async () => {
+    const querySnapshot = await getDocs(itemsCollectionRef);
+    setItems(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
+  useEffect(() => {
+    getItems();
+  }, []);
+
+  console.log(items);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
