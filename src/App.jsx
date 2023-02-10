@@ -20,14 +20,14 @@ function App() {
 
   const getItems = async () => {
     const querySnapshot = await getDocs(itemsCollectionRef);
-    setItems(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setItems(
+      querySnapshot.docs.map((doc) => ({ ...doc.data(), f_id: doc.id }))
+    );
   };
 
   useEffect(() => {
     getItems();
   }, []);
-
-  console.log(items);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -37,6 +37,7 @@ function App() {
         setLoading(false);
       });
   }, []);
+  console.log(items);
 
   return (
     <div className="App">
@@ -46,8 +47,9 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={loading ? <Loader /> : <List list={products} />}
+          element={loading ? <Loader /> : <List list={items} />}
         />
+
         <Route
           path="/category/men-clothing"
           element={
@@ -80,7 +82,7 @@ function App() {
         />
         <Route
           path="/product/:id"
-          element={loading ? <Loader /> : <ProductDetail data={products} />}
+          element={loading ? <Loader /> : <ProductDetail data={items} />}
         />
       </Routes>
     </div>
