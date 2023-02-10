@@ -23,21 +23,13 @@ function App() {
     setItems(
       querySnapshot.docs.map((doc) => ({ ...doc.data(), f_id: doc.id }))
     );
+
+    setLoading(false);
   };
 
   useEffect(() => {
     getItems();
   }, []);
-
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((json) => {
-        setProducts(json);
-        setLoading(false);
-      });
-  }, []);
-  console.log(items);
 
   return (
     <div className="App">
