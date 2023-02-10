@@ -10,7 +10,6 @@ import db from "../db/firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 
 function App() {
-  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Obtener datos
@@ -31,10 +30,14 @@ function App() {
     getItems();
   }, []);
 
+  let categorias = items.map((el) => el.category);
+  const dataArr = new Set(categorias);
+  categorias = [...dataArr];
+
   return (
     <div className="App">
       <NavBar />
-      <ItemListConteiner />
+      <ItemListConteiner categorias={categorias} />
 
       <Routes>
         <Route
@@ -42,36 +45,7 @@ function App() {
           element={loading ? <Loader /> : <List list={items} />}
         />
 
-        <Route
-          path="/category/men-clothing"
-          element={
-            <List
-              list={products.filter((el) => el.category == "men's clothing")}
-            />
-          }
-        />
-        <Route
-          path="/category/jewelery"
-          element={
-            <List list={products.filter((el) => el.category == "jewelery")} />
-          }
-        />
-        <Route
-          path="/category/electronics"
-          element={
-            <List
-              list={products.filter((el) => el.category == "electronics")}
-            />
-          }
-        />
-        <Route
-          path="/category/women-clothing"
-          element={
-            <List
-              list={products.filter((el) => el.category == "women's clothing")}
-            />
-          }
-        />
+        <Route path="/category/:cat" element={<List list={items} />} />
         <Route
           path="/product/:id"
           element={loading ? <Loader /> : <ProductDetail data={items} />}
