@@ -71,7 +71,10 @@ function App() {
           }
         />
 
-        <Route path="/cart" element={<PersonalDetails data={cart} />} />
+        <Route
+          path="/cart"
+          element={loading ? <Loader /> : <PersonalDetails data={cart[0]} />}
+        />
       </Routes>
     </div>
   );

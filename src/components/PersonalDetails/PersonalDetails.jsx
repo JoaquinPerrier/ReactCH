@@ -1,10 +1,14 @@
 import React from "react";
+import styles from "./personalDetails.module.css";
 
-const PersonalDetails = () => {
+const PersonalDetails = ({ data }) => {
+  console.log(data);
   return (
-    <div className="container">
-      <div>Avatar</div>
-      <div>PersonalDetails</div>
+    <div className={styles.conteiner}>
+      <div className="col">
+        <img src={data.avatar} className="card-img-top" alt="..." />
+      </div>
+      <div className="col">PersonalDetails</div>
     </div>
   );
 };
