@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CartWidget from "./CartWidget";
+import CartWidget from "../CardWidget/CartWidget";
 import styles from "./navBar.module.css";
 
 let brand = "Items for everyone";

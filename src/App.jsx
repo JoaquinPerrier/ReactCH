@@ -1,11 +1,11 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import ItemListConteiner from "./components/ItemListConteiner";
-import List from "./components/List";
-import ProductDetail from "./components/ProductDetail";
-import Loader from "./components/Loader";
+import NavBar from "./components/NavBar/NavBar";
+import ItemListConteiner from "./components/ItemList/itemListConteiner";
+import List from "./components/List/List";
+import ProductDetail from "./components/ProductDetail/ProductDetail";
+import Loader from "./components/Loader/Loader";
 import db from "../db/firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 
@@ -60,6 +60,8 @@ function App() {
           path="/product/:id"
           element={loading ? <Loader /> : <ProductDetail data={items} />}
         />
+
+        <Route path="/cart" element={<ProductDetail data={cart} />} />
       </Routes>
     </div>
   );
