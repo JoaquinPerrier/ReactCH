@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Products from "../Products/Products";
+import ItemListConteiner from "../ItemList/itemListConteiner";
 
-const ProductDetail = ({ data }) => {
+const ProductDetail = ({ data, categorias }) => {
   let { id } = useParams();
 
   id = parseInt(id);
@@ -10,11 +11,14 @@ const ProductDetail = ({ data }) => {
   const item = data.find((item) => item.id === id);
 
   return (
-    <div className="container text-center">
-      <div className="row row-cols-3">
-        <Products key={item.id} data={item} />
+    <>
+      <ItemListConteiner categorias={categorias} />
+      <div className="container text-center">
+        <div className="row row-cols-3">
+          <Products key={item.id} data={item} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

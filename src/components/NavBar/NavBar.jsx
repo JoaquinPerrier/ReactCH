@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CartWidget from "../CardWidget/CartWidget";
 import styles from "./navBar.module.css";
 
-let brand = "Items for everyone";
+let brand = "Hardware Store !";
 
 const NavBar = ({ cart }) => {
   return (
@@ -12,7 +12,7 @@ const NavBar = ({ cart }) => {
         <Link to="/">
           <i className="fa-solid fa-house  fa-2x"></i>
         </Link>
-        <h4>{brand}</h4>
+        <h2>{brand}</h2>
       </div>
       <div className="der-navbar">
         <CartWidget cart={cart} />

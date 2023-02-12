@@ -2,12 +2,12 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
-import ItemListConteiner from "./components/ItemList/itemListConteiner";
 import List from "./components/List/List";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Loader from "./components/Loader/Loader";
 import db from "../db/firebase-config";
 import { getDocs, collection } from "firebase/firestore";
+import PersonalDetails from "./components/PersonalDetails/PersonalDetails";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -47,21 +47,31 @@ function App() {
   return (
     <div className="App">
       {!loading ? <NavBar cart={cart[0]} /> : <></>}
-      <ItemListConteiner categorias={categorias} />
 
       <Routes>
         <Route
           path="/"
-          element={loading ? <Loader /> : <List list={items} />}
+          element={
+            loading ? <Loader /> : <List list={items} categorias={categorias} />
+          }
         />
 
-        <Route path="/category/:cat" element={<List list={items} />} />
+        <Route
+          path="/category/:cat"
+          element={<List list={items} categorias={categorias} />}
+        />
         <Route
           path="/product/:id"
-          element={loading ? <Loader /> : <ProductDetail data={items} />}
+          element={
+            loading ? (
+              <Loader />
+            ) : (
+              <ProductDetail data={items} categorias={categorias} />
+            )
+          }
         />
 
-        <Route path="/cart" element={<ProductDetail data={cart} />} />
+        <Route path="/cart" element={<PersonalDetails data={cart} />} />
       </Routes>
     </div>
   );

@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CartWidget = ({ cart }) => {
-  console.log(cart);
   return (
     <>
-      <i className="fa-solid fa-cart-shopping fa-2x"></i>
+      <Link to="/cart">
+        <i className="fa-solid fa-cart-shopping fa-2x"></i>
+      </Link>
       <div>
         <h2>{`${cart.nombre} ${cart.apellido}`}</h2>
         {cart.productos ? (
