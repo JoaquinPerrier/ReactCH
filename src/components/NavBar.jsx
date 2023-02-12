@@ -5,7 +5,7 @@ import styles from "./navBar.module.css";
 
 let brand = "Items for everyone";
 
-const NavBar = () => {
+const NavBar = ({ cart }) => {
   return (
     <div className={styles.navbar}>
       <div className="izq-navbar">
@@ -15,7 +15,7 @@ const NavBar = () => {
         <h4>{brand}</h4>
       </div>
       <div className="der-navbar">
-        <CartWidget />
+        <CartWidget cart={cart} />
       </div>
     </div>
   );

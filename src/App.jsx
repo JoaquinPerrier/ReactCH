@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
+      {!loading ? <NavBar cart={cart[0]} /> : <></>}
       <ItemListConteiner categorias={categorias} />
 
       <Routes>
