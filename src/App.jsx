@@ -12,7 +12,16 @@ import { getDocs, collection } from "firebase/firestore";
 function App() {
   const [loading, setLoading] = useState(true);
 
-  // Obtener datos
+  const [cart, setCart] = useState([]);
+
+  // Obtener carrito
+  const carritosCollectionRef = collection(db, "carritos");
+  const getCart = async () => {
+    const querySnapshot = await getDocs(carritosCollectionRef);
+    setCart(querySnapshot.docs.map((doc) => ({ ...doc.data(), f_id: doc.id })));
+  };
+
+  // Obtener datos de productos
   const [items, setItems] = useState([]);
 
   const itemsCollectionRef = collection(db, "items");
@@ -27,6 +36,7 @@ function App() {
   };
 
   useEffect(() => {
+    getCart();
     getItems();
   }, []);
 
