@@ -9,10 +9,10 @@ const CartWidget = ({ cart }) => {
       </Link>
       <div>
         <h2>{`${cart.nombre} ${cart.apellido}`}</h2>
-        {cart.productos ? (
-          <h4>Cantidad de productos: {cart.productos.length}</h4>
-        ) : (
+        {cart.productos[0] == "" ? (
           <h4>Cantidad de productos: {0}</h4>
+        ) : (
+          <h4>Cantidad de productos: {cart.productos.length}</h4>
         )}
       </div>
     </>

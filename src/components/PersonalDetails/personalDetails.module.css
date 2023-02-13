@@ -13,3 +13,15 @@
   border: 3px solid #3d3d3d;
   box-shadow: 0 0 50px #656565;
 }
+
+.conteiner div div h5 {
+  text-align: start;
+  margin-left: 6rem;
+  margin-top: 1.5rem;
+  color: #4d4d4d;
+}
+.conteiner div div {
+  border: 1.5px solid #3d3d3d;
+  margin: 2rem;
+  padding: 3rem;
+}
