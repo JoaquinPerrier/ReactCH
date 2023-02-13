@@ -6,7 +6,13 @@ import List from "./components/List/List";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Loader from "./components/Loader/Loader";
 import db from "../db/firebase-config";
-import { getDocs, collection } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  doc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import PersonalDetails from "./components/PersonalDetails/PersonalDetails";
 
 function App() {
@@ -35,6 +41,18 @@ function App() {
     setLoading(false);
   };
 
+  const addItemToCart = async (indexProd) => {
+    console.log(indexProd);
+    let itemToAdd = items.find((el) => el.id == indexProd);
+    console.log(itemToAdd);
+    const prodRef = doc(db, "carritos", cart[0].f_id);
+    await updateDoc(prodRef, {
+      productos: arrayUnion(itemToAdd),
+    });
+    getCart();
+    alert("Producto agregado con éxito!!");
+  };
+
   useEffect(() => {
     getCart();
     getItems();
@@ -52,7 +70,15 @@ function App() {
         <Route
           path="/"
           element={
-            loading ? <Loader /> : <List list={items} categorias={categorias} />
+            loading ? (
+              <Loader />
+            ) : (
+              <List
+                list={items}
+                categorias={categorias}
+                addItemToCart={addItemToCart}
+              />
+            )
           }
         />
 

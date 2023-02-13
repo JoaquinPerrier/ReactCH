@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import styles from "./products.module.css";
 
-const Products = ({ data }) => {
+const Products = ({ data, addItemToCart }) => {
+  const handleClick = () => {
+    addItemToCart(data.id);
+  };
   return (
     <div className="card product col">
       <img src={data.image} className="card-img-top" alt="..." />
@@ -25,7 +28,11 @@ const Products = ({ data }) => {
             View item details
           </button>
         </Link>
-        <button type="button" className={`btn btn-primary ${styles.buttons}`}>
+        <button
+          type="button"
+          className={`btn btn-primary ${styles.buttons}`}
+          onClick={handleClick}
+        >
           Add to cart!
         </button>
       </div>

@@ -3,7 +3,6 @@ import styles from "./personalDetails.module.css";
 import { Link } from "react-router-dom";
 
 const PersonalDetails = ({ data }) => {
-  console.log(data);
   return (
     <div className={styles.conteiner}>
       <div className="col">
