@@ -34,7 +34,7 @@ const PersonalDetails = ({ data, finishBuy }) => {
           <u>
             <h3>Productos:</h3>
           </u>
-          {data.productos[0] == "" ? (
+          {!data.productos ? (
             <h5>
               Todavía no posees productos en tu carrito! En{" "}
               {<Link to="/">el siguiente link</Link>} podes volver al catálogo
@@ -62,11 +62,16 @@ const PersonalDetails = ({ data, finishBuy }) => {
               );
             })
           )}
-          <Link to={`/`}>
-            <button className="btn btn-success" onClick={finishBuy}>
-              Finalizar compra!
-            </button>
-          </Link>
+
+          {data.productos ? (
+            <Link to={`/`}>
+              <button className="btn btn-success" onClick={finishBuy}>
+                Finalizar compra!
+              </button>
+            </Link>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

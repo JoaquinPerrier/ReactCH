@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Products from "../Products/Products";
 import ItemListConteiner from "../ItemList/itemListConteiner";
 
-const ProductDetail = ({ data, categorias }) => {
+const ProductDetail = ({ data, categorias, addItemToCart }) => {
   let { id } = useParams();
 
   id = parseInt(id);
@@ -15,7 +15,7 @@ const ProductDetail = ({ data, categorias }) => {
       <ItemListConteiner categorias={categorias} />
       <div className="container text-center">
         <div className="row row-cols-3">
-          <Products key={item.id} data={item} />
+          <Products key={item.id} data={item} addItemToCart={addItemToCart} />
         </div>
       </div>
     </>

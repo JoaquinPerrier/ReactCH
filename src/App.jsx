@@ -98,7 +98,13 @@ function App() {
 
         <Route
           path="/category/:cat"
-          element={<List list={items} categorias={categorias} />}
+          element={
+            <List
+              list={items}
+              categorias={categorias}
+              addItemToCart={addItemToCart}
+            />
+          }
         />
         <Route
           path="/product/:id"
@@ -106,7 +112,11 @@ function App() {
             loading ? (
               <Loader />
             ) : (
-              <ProductDetail data={items} categorias={categorias} />
+              <ProductDetail
+                data={items}
+                categorias={categorias}
+                addItemToCart={addItemToCart}
+              />
             )
           }
         />
