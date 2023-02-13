@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./personalDetails.module.css";
 import { Link } from "react-router-dom";
 
-const PersonalDetails = ({ data }) => {
-  console.log(data.productos);
+const PersonalDetails = ({ data, finishBuy }) => {
   return (
     <div className={styles.conteiner}>
       <div className={`col ${styles.avatar}`}>
@@ -42,9 +41,12 @@ const PersonalDetails = ({ data }) => {
               de productos
             </h5>
           ) : (
-            data.productos.map((el) => {
+            data.productos.map((el, index) => {
               return (
-                <div className={`container text-center ${styles.prod}`}>
+                <div
+                  className={`container text-center ${styles.prod}`}
+                  key={index}
+                >
                   <div className="row">
                     <div className="col">
                       <h5>{el.title}</h5>
@@ -60,7 +62,11 @@ const PersonalDetails = ({ data }) => {
               );
             })
           )}
-          <button class="btn btn-success">Finalizar compra!</button>
+          <Link to={`/`}>
+            <button className="btn btn-success" onClick={finishBuy}>
+              Finalizar compra!
+            </button>
+          </Link>
         </div>
       </div>
     </div>

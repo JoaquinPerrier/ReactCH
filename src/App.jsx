@@ -12,6 +12,7 @@ import {
   doc,
   updateDoc,
   arrayUnion,
+  deleteField,
 } from "firebase/firestore";
 import PersonalDetails from "./components/PersonalDetails/PersonalDetails";
 
@@ -42,15 +43,28 @@ function App() {
   };
 
   const addItemToCart = async (indexProd) => {
-    console.log(indexProd);
     let itemToAdd = items.find((el) => el.id == indexProd);
-    console.log(itemToAdd);
     const prodRef = doc(db, "carritos", cart[0].f_id);
     await updateDoc(prodRef, {
       productos: arrayUnion(itemToAdd),
     });
     getCart();
     alert("Producto agregado con éxito!!");
+  };
+
+  const finishBuy = async () => {
+    if (confirm("Esta seguro que desea comprar los items?")) {
+      const cityRef = doc(db, "carritos", cart[0].f_id);
+
+      await updateDoc(cityRef, {
+        productos: deleteField(),
+      });
+
+      getCart();
+      alert(
+        `Productos comprados con éxito! Los mismos llegarán entre 7 y 10 días hábiles a ${cart[0].domicilio}, ${cart[0].ciudad}, ${cart[0].pais}`
+      );
+    }
   };
 
   useEffect(() => {
@@ -99,7 +113,13 @@ function App() {
 
         <Route
           path="/cart"
-          element={loading ? <Loader /> : <PersonalDetails data={cart[0]} />}
+          element={
+            loading ? (
+              <Loader />
+            ) : (
+              <PersonalDetails data={cart[0]} finishBuy={finishBuy} />
+            )
+          }
         />
       </Routes>
     </div>
