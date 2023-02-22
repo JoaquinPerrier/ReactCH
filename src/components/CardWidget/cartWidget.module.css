@@ -1,0 +1,14 @@
+.contadorConteiner {
+  display: flex;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.contadorConteiner span {
+  margin-top: 1rem;
+  font-size: 4rem;
+}
+
+a:hover {
+  text-decoration: none;
+}

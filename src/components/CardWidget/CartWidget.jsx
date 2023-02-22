@@ -1,21 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styles from "./cartWidget.module.css";
 
 const CartWidget = ({ cart }) => {
   return (
-    <>
+    <div>
+      <h2>{`${cart.nombre} ${cart.apellido}`}</h2>
       <Link to="/cart">
-        <i className="fa-solid fa-cart-shopping fa-2x"></i>
+        <span className={`${styles.contadorConteiner} fa-layers`}>
+          <i class="fas fa-shopping-cart fa-2x"></i>
+          {cart.productos ? (
+            <span className={`fa-layers-counter ${styles.asd}`}>
+              {cart.productos.length}
+            </span>
+          ) : (
+            <span className={`fa-layers-counter`}>0</span>
+          )}
+        </span>
       </Link>
-      <div>
-        <h2>{`${cart.nombre} ${cart.apellido}`}</h2>
-        {cart.productos ? (
-          <h4>Cantidad de productos: {cart.productos.length}</h4>
-        ) : (
-          <h4>Cantidad de productos: {0}</h4>
-        )}
-      </div>
-    </>
+    </div>
   );
 };
 
