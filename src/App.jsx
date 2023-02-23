@@ -67,6 +67,19 @@ function App() {
     }
   };
 
+  const emptyCart = async () => {
+    if (confirm("Esta seguro que desea borrar los items del carrito?")) {
+      const cityRef = doc(db, "carritos", cart[0].f_id);
+
+      await updateDoc(cityRef, {
+        productos: deleteField(),
+      });
+
+      getCart();
+      alert(`Productos eliminados con éxito`);
+    }
+  };
+
   useEffect(() => {
     getCart();
     getItems();
@@ -127,7 +140,11 @@ function App() {
             loading ? (
               <Loader />
             ) : (
-              <PersonalDetails data={cart[0]} finishBuy={finishBuy} />
+              <PersonalDetails
+                data={cart[0]}
+                finishBuy={finishBuy}
+                emptyCart={emptyCart}
+              />
             )
           }
         />

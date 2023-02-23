@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./personalDetails.module.css";
 import { Link } from "react-router-dom";
 
-const PersonalDetails = ({ data, finishBuy }) => {
+const PersonalDetails = ({ data, finishBuy, emptyCart }) => {
   return (
     <div className={styles.conteiner}>
       <div className={`col ${styles.avatar}`}>
@@ -31,9 +31,11 @@ const PersonalDetails = ({ data, finishBuy }) => {
           </h4>
         </div>
         <div className={styles.prod}>
-          <u>
-            <h3>Productos:</h3>
-          </u>
+          <h3>
+            {" "}
+            <u>Productos:</u>
+          </h3>
+
           {!data.productos ? (
             <h5>
               Todavía no posees productos en tu carrito! En{" "}
@@ -64,11 +66,18 @@ const PersonalDetails = ({ data, finishBuy }) => {
           )}
 
           {data.productos ? (
-            <Link to={`/`}>
-              <button className="btn btn-success" onClick={finishBuy}>
-                Finalizar compra!
-              </button>
-            </Link>
+            <div>
+              <Link to={`/`}>
+                <button className="btn btn-danger" onClick={emptyCart}>
+                  Vaciar carrito!
+                </button>
+              </Link>
+              <Link to={`/`}>
+                <button className="btn btn-success" onClick={finishBuy}>
+                  Finalizar compra!
+                </button>
+              </Link>
+            </div>
           ) : (
             <></>
           )}
