@@ -40,3 +40,14 @@
 .prod button {
   text-align: right;
 }
+
+.totalPrice {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+}

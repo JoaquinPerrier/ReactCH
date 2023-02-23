@@ -3,6 +3,11 @@ import styles from "./personalDetails.module.css";
 import { Link } from "react-router-dom";
 
 const PersonalDetails = ({ data, finishBuy, emptyCart }) => {
+  let totalPrice = 0;
+  data.productos.forEach((el) => {
+    totalPrice = totalPrice + el.price;
+  });
+
   return (
     <div className={styles.conteiner}>
       <div className={`col ${styles.avatar}`}>
@@ -66,18 +71,28 @@ const PersonalDetails = ({ data, finishBuy, emptyCart }) => {
           )}
 
           {data.productos ? (
-            <div>
-              <Link to={`/`}>
-                <button className="btn btn-danger" onClick={emptyCart}>
-                  Vaciar carrito!
-                </button>
-              </Link>
-              <Link to={`/`}>
-                <button className="btn btn-success" onClick={finishBuy}>
-                  Finalizar compra!
-                </button>
-              </Link>
-            </div>
+            <>
+              <div className={`row ${styles.totalPrice}`}>
+                <div>
+                  <h3>Total:</h3>
+                </div>
+                <div>
+                  <h5>$ {totalPrice}</h5>
+                </div>
+              </div>
+              <div className={`row ${styles.buttonContainer}`}>
+                <Link to={`/`}>
+                  <button className="btn btn-danger" onClick={emptyCart}>
+                    Vaciar carrito!
+                  </button>
+                </Link>
+                <Link to={`/`}>
+                  <button className="btn btn-success" onClick={finishBuy}>
+                    Finalizar compra!
+                  </button>
+                </Link>
+              </div>
+            </>
           ) : (
             <></>
           )}
