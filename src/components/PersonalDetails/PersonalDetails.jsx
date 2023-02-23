@@ -1,12 +1,15 @@
 import React from "react";
 import styles from "./personalDetails.module.css";
 import { Link } from "react-router-dom";
+import { async } from "@firebase/util";
 
-const PersonalDetails = ({ data, finishBuy, emptyCart }) => {
+const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
   let totalPrice = 0;
-  data.productos.forEach((el) => {
-    totalPrice = totalPrice + el.price;
-  });
+  if (data.productos) {
+    data.productos.forEach((el) => {
+      totalPrice = totalPrice + el.price;
+    });
+  }
 
   return (
     <div className={styles.conteiner}>
@@ -63,6 +66,16 @@ const PersonalDetails = ({ data, finishBuy, emptyCart }) => {
                     </div>
                     <div className="col">
                       <h5>$ {el.price}</h5>
+                    </div>
+                    <div className="col">
+                      <button
+                        className="btn btn-outline-danger"
+                        onClick={() => {
+                          deleteItem(el.id);
+                        }}
+                      >
+                        X
+                      </button>
                     </div>
                   </div>
                 </div>

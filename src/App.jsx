@@ -12,6 +12,7 @@ import {
   doc,
   updateDoc,
   arrayUnion,
+  arrayRemove,
   deleteField,
 } from "firebase/firestore";
 import PersonalDetails from "./components/PersonalDetails/PersonalDetails";
@@ -54,9 +55,9 @@ function App() {
 
   const finishBuy = async () => {
     if (confirm("Esta seguro que desea comprar los items?")) {
-      const cityRef = doc(db, "carritos", cart[0].f_id);
+      const cartRef = doc(db, "carritos", cart[0].f_id);
 
-      await updateDoc(cityRef, {
+      await updateDoc(cartRef, {
         productos: deleteField(),
       });
 
@@ -69,15 +70,37 @@ function App() {
 
   const emptyCart = async () => {
     if (confirm("Esta seguro que desea borrar los items del carrito?")) {
-      const cityRef = doc(db, "carritos", cart[0].f_id);
+      const cartRef = doc(db, "carritos", cart[0].f_id);
 
-      await updateDoc(cityRef, {
+      await updateDoc(cartRef, {
         productos: deleteField(),
       });
 
       getCart();
       alert(`Productos eliminados con éxito`);
     }
+  };
+
+  const deleteItem = async (id) => {
+    let newArray = cart[0].productos.filter((el) => el.id != id);
+
+    const cartRef = doc(db, "carritos", cart[0].f_id);
+
+    if (newArray[0] == null) {
+      await updateDoc(cartRef, {
+        productos: deleteField(),
+      });
+    } else {
+      await updateDoc(cartRef, {
+        productos: deleteField(),
+      });
+      await updateDoc(cartRef, {
+        productos: newArray,
+      });
+    }
+
+    getCart();
+    alert("Item eliminado del carrito con éxito!");
   };
 
   useEffect(() => {
@@ -144,6 +167,7 @@ function App() {
                 data={cart[0]}
                 finishBuy={finishBuy}
                 emptyCart={emptyCart}
+                deleteItem={deleteItem}
               />
             )
           }

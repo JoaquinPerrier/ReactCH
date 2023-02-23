@@ -8,7 +8,7 @@ const CartWidget = ({ cart }) => {
       <h2>{`${cart.nombre} ${cart.apellido}`}</h2>
       <Link to="/cart">
         <span className={`${styles.contadorConteiner} fa-layers`}>
-          <i class="fas fa-shopping-cart fa-2x"></i>
+          <i className="fas fa-shopping-cart fa-2x"></i>
           {cart.productos ? (
             <span className={`fa-layers-counter ${styles.asd}`}>
               {cart.productos.length}
