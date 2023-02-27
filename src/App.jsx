@@ -12,7 +12,6 @@ import {
   doc,
   updateDoc,
   arrayUnion,
-  arrayRemove,
   deleteField,
 } from "firebase/firestore";
 import PersonalDetails from "./components/PersonalDetails/PersonalDetails";
@@ -44,13 +43,41 @@ function App() {
   };
 
   const addItemToCart = async (indexProd, cantidad) => {
-    let itemToAdd = items.find((el) => el.id == indexProd);
-    itemToAdd.cantidad = cantidad;
-    console.log(itemToAdd);
-    const prodRef = doc(db, "carritos", cart[0].f_id);
-    await updateDoc(prodRef, {
-      productos: arrayUnion(itemToAdd),
-    });
+    if (!cart[0].productos) {
+      let itemToAdd = items.find((el) => el.id == indexProd);
+      itemToAdd.cantidad = cantidad;
+
+      const prodRef = doc(db, "carritos", cart[0].f_id);
+      await updateDoc(prodRef, {
+        productos: arrayUnion(itemToAdd),
+      });
+    } else {
+      if (cart[0].productos.find((el) => el.id == indexProd)) {
+        let indexItem = cart[0].productos.findIndex((el) => el.id == indexProd);
+        console.log(cart[0].productos);
+        cart[0].productos[indexItem].cantidad =
+          cart[0].productos[indexItem].cantidad + cantidad;
+
+        console.log(cart[0].productos);
+
+        const prodRef = doc(db, "carritos", cart[0].f_id);
+        await updateDoc(prodRef, {
+          productos: deleteField(),
+        });
+        await updateDoc(prodRef, {
+          productos: cart[0].productos,
+        });
+      } else {
+        let itemToAdd = items.find((el) => el.id == indexProd);
+        itemToAdd.cantidad = cantidad;
+
+        const prodRef = doc(db, "carritos", cart[0].f_id);
+        await updateDoc(prodRef, {
+          productos: arrayUnion(itemToAdd),
+        });
+      }
+    }
+
     getCart();
     alert("Producto agregado con éxito!!");
   };
