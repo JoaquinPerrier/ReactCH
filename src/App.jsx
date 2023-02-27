@@ -43,8 +43,10 @@ function App() {
     setLoading(false);
   };
 
-  const addItemToCart = async (indexProd) => {
+  const addItemToCart = async (indexProd, cantidad) => {
     let itemToAdd = items.find((el) => el.id == indexProd);
+    itemToAdd.cantidad = cantidad;
+    console.log(itemToAdd);
     const prodRef = doc(db, "carritos", cart[0].f_id);
     await updateDoc(prodRef, {
       productos: arrayUnion(itemToAdd),

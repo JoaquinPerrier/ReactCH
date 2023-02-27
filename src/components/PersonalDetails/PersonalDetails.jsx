@@ -68,6 +68,9 @@ const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
                       <h5>$ {el.price}</h5>
                     </div>
                     <div className="col">
+                      <h5>Amount: {el.cantidad}</h5>
+                    </div>
+                    <div className="col">
                       <button
                         className="btn btn-outline-danger"
                         onClick={() => {
