@@ -3,14 +3,7 @@ import styles from "./personalDetails.module.css";
 import { Link } from "react-router-dom";
 import CartContext from "../../contexts/CartContext";
 import db from "../../../db/firebase-config";
-import {
-  getDocs,
-  collection,
-  doc,
-  updateDoc,
-  arrayUnion,
-  deleteField,
-} from "firebase/firestore";
+import { doc, updateDoc, deleteField } from "firebase/firestore";
 
 const PersonalDetails = ({ getCart }) => {
   let cart = useContext(CartContext);
