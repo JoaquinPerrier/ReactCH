@@ -1,5 +1,7 @@
 # Trabajo práctico Ecommerce realizado con React
 
+Deploy: https://react-ch-ecommerce-joaquinperrier.vercel.app/
+
 ![unknown_2023 02 12-23 36](https://user-images.githubusercontent.com/73315138/218359562-5abbbd6b-8836-40ec-a6a5-59b30695dac9.gif)
 
 **Descripción:**<br>
@@ -13,3 +15,7 @@ Los productos también se encuentran guardados en Firebase.
 - http://127.0.0.1:5173/category/:cat Muestra todos los productos pertenecientes a una determinada categoría.
 - http://127.0.0.1:5173/product/:id Muestra el producto que corresponde a la id pasada como param.
 - http://127.0.0.1:5173/cart Muestra los datos del usuarios, y los items que posee en el carrito.
+
+Dependencias usadas:
+- React (hooks, context)
+- Firebase
