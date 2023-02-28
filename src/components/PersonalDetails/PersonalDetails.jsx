@@ -1,9 +1,12 @@
-import React from "react";
+import { useContext } from "react";
 import styles from "./personalDetails.module.css";
 import { Link } from "react-router-dom";
-import { async } from "@firebase/util";
+import CartContext from "../../contexts/CartContext";
 
 const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
+  let cartContextDefault = useContext(CartContext);
+  console.log(cartContextDefault);
+
   let totalPrice = 0;
   if (data.productos) {
     data.productos.forEach((el) => {

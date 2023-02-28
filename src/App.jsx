@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import List from "./components/List/List";
@@ -15,6 +15,7 @@ import {
   deleteField,
 } from "firebase/firestore";
 import PersonalDetails from "./components/PersonalDetails/PersonalDetails";
+import CartContext from "./contexts/CartContext";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,14 @@ function App() {
   const carritosCollectionRef = collection(db, "carritos");
   const getCart = async () => {
     const querySnapshot = await getDocs(carritosCollectionRef);
-    setCart(querySnapshot.docs.map((doc) => ({ ...doc.data(), f_id: doc.id })));
+    await setCart(
+      querySnapshot.docs.map((doc) => ({ ...doc.data(), f_id: doc.id }))
+    );
+
+    cartContextDefault = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      f_id: doc.id,
+    }));
   };
 
   // Obtener datos de productos
@@ -35,7 +43,7 @@ function App() {
 
   const getItems = async () => {
     const querySnapshot = await getDocs(itemsCollectionRef);
-    setItems(
+    await setItems(
       querySnapshot.docs.map((doc) => ({ ...doc.data(), f_id: doc.id }))
     );
 
@@ -192,12 +200,14 @@ function App() {
             loading ? (
               <Loader />
             ) : (
-              <PersonalDetails
-                data={cart[0]}
-                finishBuy={finishBuy}
-                emptyCart={emptyCart}
-                deleteItem={deleteItem}
-              />
+              <CartContext.Provider value={cart}>
+                <PersonalDetails
+                  data={cart[0]}
+                  finishBuy={finishBuy}
+                  emptyCart={emptyCart}
+                  deleteItem={deleteItem}
+                />
+              </CartContext.Provider>
             )
           }
         />
