@@ -80,21 +80,6 @@ function App() {
     alert("Producto agregado con éxito!!");
   };
 
-  const finishBuy = async () => {
-    if (confirm("Esta seguro que desea comprar los items?")) {
-      const cartRef = doc(db, "carritos", cart[0].f_id);
-
-      await updateDoc(cartRef, {
-        productos: deleteField(),
-      });
-
-      getCart();
-      alert(
-        `Productos comprados con éxito! Los mismos llegarán entre 7 y 10 días hábiles a ${cart[0].domicilio}, ${cart[0].ciudad}, ${cart[0].pais}`
-      );
-    }
-  };
-
   const emptyCart = async () => {
     if (confirm("Esta seguro que desea borrar los items del carrito?")) {
       const cartRef = doc(db, "carritos", cart[0].f_id);

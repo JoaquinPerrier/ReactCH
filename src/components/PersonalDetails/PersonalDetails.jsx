@@ -12,7 +12,7 @@ import {
   deleteField,
 } from "firebase/firestore";
 
-const PersonalDetails = ({ finishBuy, emptyCart, getCart }) => {
+const PersonalDetails = ({ emptyCart, getCart }) => {
   let cart = useContext(CartContext);
 
   let totalPrice = 0;
@@ -41,6 +41,21 @@ const PersonalDetails = ({ finishBuy, emptyCart, getCart }) => {
 
     getCart();
     alert("Item eliminado del carrito con éxito!");
+  };
+
+  const finishBuy = async () => {
+    if (confirm("Esta seguro que desea comprar los items?")) {
+      const cartRef = doc(db, "carritos", cart.f_id);
+
+      await updateDoc(cartRef, {
+        productos: deleteField(),
+      });
+
+      getCart();
+      alert(
+        `Productos comprados con éxito! Los mismos llegarán entre 7 y 10 días hábiles a ${cart.domicilio}, ${cart.ciudad}, ${cart.pais}`
+      );
+    }
   };
 
   return (
