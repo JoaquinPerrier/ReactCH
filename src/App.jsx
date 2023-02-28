@@ -80,19 +80,6 @@ function App() {
     alert("Producto agregado con éxito!!");
   };
 
-  const emptyCart = async () => {
-    if (confirm("Esta seguro que desea borrar los items del carrito?")) {
-      const cartRef = doc(db, "carritos", cart[0].f_id);
-
-      await updateDoc(cartRef, {
-        productos: deleteField(),
-      });
-
-      getCart();
-      alert(`Productos eliminados con éxito`);
-    }
-  };
-
   useEffect(() => {
     getCart();
     getItems();
@@ -154,7 +141,7 @@ function App() {
               <Loader />
             ) : (
               <CartContext.Provider value={cart[0]}>
-                <PersonalDetails getCart={getCart} emptyCart={emptyCart} />
+                <PersonalDetails getCart={getCart} />
               </CartContext.Provider>
             )
           }

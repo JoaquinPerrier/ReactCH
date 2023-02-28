@@ -12,7 +12,7 @@ import {
   deleteField,
 } from "firebase/firestore";
 
-const PersonalDetails = ({ emptyCart, getCart }) => {
+const PersonalDetails = ({ getCart }) => {
   let cart = useContext(CartContext);
 
   let totalPrice = 0;
@@ -41,6 +41,19 @@ const PersonalDetails = ({ emptyCart, getCart }) => {
 
     getCart();
     alert("Item eliminado del carrito con éxito!");
+  };
+
+  const emptyCart = async () => {
+    if (confirm("Esta seguro que desea borrar los items del carrito?")) {
+      const cartRef = doc(db, "carritos", cart.f_id);
+
+      await updateDoc(cartRef, {
+        productos: deleteField(),
+      });
+
+      getCart();
+      alert(`Productos eliminados con éxito`);
+    }
   };
 
   const finishBuy = async () => {
