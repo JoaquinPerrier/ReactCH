@@ -4,20 +4,19 @@ import { Link } from "react-router-dom";
 import CartContext from "../../contexts/CartContext";
 
 const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
-  let cartContextDefault = useContext(CartContext);
-  console.log(cartContextDefault);
+  let cart = useContext(CartContext);
 
   let totalPrice = 0;
-  if (data.productos) {
-    data.productos.forEach((el) => {
-      totalPrice = totalPrice + el.price;
+  if (cart.productos) {
+    cart.productos.forEach((el) => {
+      totalPrice = totalPrice + el.price * el.cantidad;
     });
   }
 
   return (
     <div className={styles.conteiner}>
       <div className={`col ${styles.avatar}`}>
-        <img src={data.avatar} className="card-img-top" alt="..." />
+        <img src={cart.avatar} className="card-img-top" alt="..." />
       </div>
       <div className="col">
         <div className={`col ${styles.personales}`}>
@@ -25,20 +24,20 @@ const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
             <h3>Datos personales:</h3>
           </u>
           <h4>
-            <u>Nombre y Apellido:</u> {data.nombre}
-            {data.apellido}
+            <u>Nombre y Apellido:</u> {cart.nombre}
+            {cart.apellido}
           </h4>
           <h4>
-            <u>DNI:</u> {data.dni}
+            <u>DNI:</u> {cart.dni}
           </h4>
           <h4>
-            <u>Domicilio:</u> {data.domicilio}
+            <u>Domicilio:</u> {cart.domicilio}
           </h4>
           <h4>
-            <u>Ciudad:</u> {data.ciudad}
+            <u>Ciudad:</u> {cart.ciudad}
           </h4>
           <h4>
-            <u>Pais:</u> {data.pais}
+            <u>Pais:</u> {cart.pais}
           </h4>
         </div>
         <div className={styles.prod}>
@@ -47,14 +46,14 @@ const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
             <u>Productos:</u>
           </h3>
 
-          {!data.productos ? (
+          {!cart.productos ? (
             <h5>
               Todavía no posees productos en tu carrito! En{" "}
               {<Link to="/">el siguiente link</Link>} podes volver al catálogo
               de productos
             </h5>
           ) : (
-            data.productos.map((el, index) => {
+            cart.productos.map((el, index) => {
               return (
                 <div
                   className={`container text-center ${styles.prod}`}
@@ -68,7 +67,7 @@ const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
                       <img src={el.image} className="card-img-top" alt="..." />
                     </div>
                     <div className="col">
-                      <h5>$ {el.price}</h5>
+                      <h5>$ {el.price} c/u</h5>
                     </div>
                     <div className="col">
                       <h5>Amount: {el.cantidad}</h5>
@@ -89,7 +88,7 @@ const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
             })
           )}
 
-          {data.productos ? (
+          {cart.productos ? (
             <>
               <div className={`row ${styles.totalPrice}`}>
                 <div>

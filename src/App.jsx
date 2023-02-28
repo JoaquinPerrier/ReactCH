@@ -20,27 +20,19 @@ import CartContext from "./contexts/CartContext";
 function App() {
   const [loading, setLoading] = useState(true);
 
-  const [cart, setCart] = useState([]);
-
   // Obtener carrito
+  const [cart, setCart] = useState([]);
   const carritosCollectionRef = collection(db, "carritos");
   const getCart = async () => {
     const querySnapshot = await getDocs(carritosCollectionRef);
     await setCart(
       querySnapshot.docs.map((doc) => ({ ...doc.data(), f_id: doc.id }))
     );
-
-    cartContextDefault = querySnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      f_id: doc.id,
-    }));
   };
 
-  // Obtener datos de productos
+  // Obtener productos
   const [items, setItems] = useState([]);
-
   const itemsCollectionRef = collection(db, "items");
-
   const getItems = async () => {
     const querySnapshot = await getDocs(itemsCollectionRef);
     await setItems(
@@ -62,11 +54,9 @@ function App() {
     } else {
       if (cart[0].productos.find((el) => el.id == indexProd)) {
         let indexItem = cart[0].productos.findIndex((el) => el.id == indexProd);
-        console.log(cart[0].productos);
+
         cart[0].productos[indexItem].cantidad =
           cart[0].productos[indexItem].cantidad + cantidad;
-
-        console.log(cart[0].productos);
 
         const prodRef = doc(db, "carritos", cart[0].f_id);
         await updateDoc(prodRef, {
@@ -200,7 +190,7 @@ function App() {
             loading ? (
               <Loader />
             ) : (
-              <CartContext.Provider value={cart}>
+              <CartContext.Provider value={cart[0]}>
                 <PersonalDetails
                   data={cart[0]}
                   finishBuy={finishBuy}
