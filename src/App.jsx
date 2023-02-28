@@ -108,28 +108,6 @@ function App() {
     }
   };
 
-  const deleteItem = async (id) => {
-    let newArray = cart[0].productos.filter((el) => el.id != id);
-
-    const cartRef = doc(db, "carritos", cart[0].f_id);
-
-    if (newArray[0] == null) {
-      await updateDoc(cartRef, {
-        productos: deleteField(),
-      });
-    } else {
-      await updateDoc(cartRef, {
-        productos: deleteField(),
-      });
-      await updateDoc(cartRef, {
-        productos: newArray,
-      });
-    }
-
-    getCart();
-    alert("Item eliminado del carrito con éxito!");
-  };
-
   useEffect(() => {
     getCart();
     getItems();
@@ -191,12 +169,7 @@ function App() {
               <Loader />
             ) : (
               <CartContext.Provider value={cart[0]}>
-                <PersonalDetails
-                  data={cart[0]}
-                  finishBuy={finishBuy}
-                  emptyCart={emptyCart}
-                  deleteItem={deleteItem}
-                />
+                <PersonalDetails getCart={getCart} emptyCart={emptyCart} />
               </CartContext.Provider>
             )
           }

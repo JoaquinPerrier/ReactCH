@@ -2,8 +2,17 @@ import { useContext } from "react";
 import styles from "./personalDetails.module.css";
 import { Link } from "react-router-dom";
 import CartContext from "../../contexts/CartContext";
+import db from "../../../db/firebase-config";
+import {
+  getDocs,
+  collection,
+  doc,
+  updateDoc,
+  arrayUnion,
+  deleteField,
+} from "firebase/firestore";
 
-const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
+const PersonalDetails = ({ finishBuy, emptyCart, getCart }) => {
   let cart = useContext(CartContext);
 
   let totalPrice = 0;
@@ -12,6 +21,27 @@ const PersonalDetails = ({ data, finishBuy, emptyCart, deleteItem }) => {
       totalPrice = totalPrice + el.price * el.cantidad;
     });
   }
+
+  const deleteItem = async (id) => {
+    let newArray = cart.productos.filter((el) => el.id != id);
+    const cartRef = doc(db, "carritos", cart.f_id);
+
+    if (newArray[0] == null) {
+      await updateDoc(cartRef, {
+        productos: deleteField(),
+      });
+    } else {
+      await updateDoc(cartRef, {
+        productos: deleteField(),
+      });
+      await updateDoc(cartRef, {
+        productos: newArray,
+      });
+    }
+
+    getCart();
+    alert("Item eliminado del carrito con éxito!");
+  };
 
   return (
     <div className={styles.conteiner}>
